@@ -1,4 +1,4 @@
-package ru.skillbranch.dev_intensive.utils
+package ru.skillbranch.devintensive.utils
 
 object Utils {
 
@@ -42,7 +42,7 @@ object Utils {
         val processedString = fullName?.trim()
         if (processedString.isNullOrBlank())
             return null to null
-        val parts : List<String>? = processedString.split(" ")
+        val parts : List<String>? = processedString.split("\\s+".toRegex())
 
         val firstName = parts?.getOrNull(0)
         val lastName = parts?.getOrNull(1)
@@ -55,7 +55,7 @@ object Utils {
         for (char in charSet) {
             if (translitMap.containsKey(char.toLowerCase())) {
                 processedString = if (char.isUpperCase())
-                    processedString.replace("$char".toRegex(), translitMap.getValue(char.toLowerCase()).toUpperCase())
+                    processedString.replace("$char".toRegex(), translitMap.getValue(char.toLowerCase()).capitalize())
                 else
                     processedString.replace("$char".toRegex(), translitMap.getValue(char))
             }
