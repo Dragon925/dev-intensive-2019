@@ -34,11 +34,11 @@ fun Date.humanizeDiff(date: Date = Date()): String {
         (timeDiff >= 0L) and (timeDiff <= SECOND) -> "только что"
         (timeDiff > SECOND) and (timeDiff <= 45 * SECOND) -> "несколько секунд"
         (timeDiff > 45 * SECOND) and (timeDiff <= 75 * SECOND) -> "минуту"
-        (timeDiff > 75 * SECOND) and (timeDiff <= 45 * MINUTE) -> humanizeText(timeDiff / MINUTE, TimeUnits.MINUTE)
+        (timeDiff > 75 * SECOND) and (timeDiff <= 45 * MINUTE) -> TimeUnits.MINUTE.plural(timeDiff / MINUTE)
         (timeDiff > 45 * MINUTE) and (timeDiff <= 75 * MINUTE) -> "час"
-        (timeDiff > 75 * MINUTE) and (timeDiff <= 22 * HOUR) -> humanizeText(timeDiff / HOUR, TimeUnits.HOUR)
+        (timeDiff > 75 * MINUTE) and (timeDiff <= 22 * HOUR) -> TimeUnits.HOUR.plural(timeDiff / HOUR)
         (timeDiff > 22 * HOUR) and (timeDiff <= 26 * HOUR) -> "день"
-        (timeDiff > 26 * HOUR) and (timeDiff <= 360 * DAY) -> humanizeText(timeDiff / DAY, TimeUnits.DAY)
+        (timeDiff > 26 * HOUR) and (timeDiff <= 360 * DAY) -> TimeUnits.DAY.plural(timeDiff / DAY)
         else -> ""
     }
     return when(text) {
@@ -76,8 +76,42 @@ private fun humanizeText(amount: Long, type: TimeUnits) : String{
 }
 
 enum class TimeUnits {
-    SECOND,
-    MINUTE,
-    HOUR,
-    DAY
+    SECOND {
+        override fun plural(amount: Long) : String {
+            return when {
+                    (amount % 10 == 1L) and (amount % 100 != 11L) -> "$amount секунду"
+                    (amount % 10 in 2L..4L) and (amount % 100 !in 12L..14L) -> "$amount секунды"
+                    else -> "$amount секунд"
+                }
+        }
+    },
+    MINUTE {
+        override fun plural(amount: Long) : String {
+            return when {
+                (amount % 10 == 1L) and (amount % 100 != 11L) -> "$amount минуту"
+                (amount % 10 in 2L..4L) and (amount % 100 !in 12L..14L) -> "$amount минуты"
+                else -> "$amount минут"
+            }
+        }
+    },
+    HOUR {
+        override fun plural(amount: Long) : String {
+            return when {
+                (amount % 10 == 1L) and (amount % 100 != 11L) -> "$amount час"
+                (amount % 10 in 2L..4L) and (amount % 100 !in 12L..14L) -> "$amount часа"
+                else -> "$amount часов"
+            }
+        }
+    },
+    DAY {
+        override fun plural(amount: Long) : String {
+            return when {
+                (amount % 10 == 1L) and (amount % 100 != 11L) -> "$amount день"
+                (amount % 10 in 2L..4L) and (amount % 100 !in 12L..14L) -> "$amount дня"
+                else -> "$amount дней"
+            }
+        }
+    };
+
+    abstract fun plural(amount: Long) : String
 }
