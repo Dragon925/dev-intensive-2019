@@ -76,7 +76,7 @@ class Bender(
         SERIAL("Мой серийный номер?", listOf("2716057")) {
             override fun nextQuestion(): Question = IDLE
             override fun validate(answer: String): Pair<Boolean, String> =
-                Regex("\\d{7}$").matches(answer) to "Серийный номер содержит только цифры, и их 7\n"
+                Regex("\\d{7}$").matches(answer.trim()) to "Серийный номер содержит только цифры, и их 7\n"
         },
         IDLE("На этом все, вопросов больше нет", listOf()) {
             override fun nextQuestion(): Question = IDLE
