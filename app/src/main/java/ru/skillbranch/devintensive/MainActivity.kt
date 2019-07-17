@@ -101,12 +101,10 @@ class MainActivity : AppCompatActivity(), View.OnClickListener, TextView.OnEdito
         if (v?.id == R.id.iv_send) {
             val (phrase, color) = benderObj.listenAnswer(messageEt.text.toString())
             messageEt.setText("")
-            Log.d("MainActivity", "${isKeyboardOpen()}")
             hideKeyboard()
             val (r, g, b) = color
             benderImage.setColorFilter(Color.rgb(r, g, b), PorterDuff.Mode.MULTIPLY)
             textTxt.text = phrase
-            Log.d("MainActivity", "${isKeyboardOpen()}")
         }
     }
 }

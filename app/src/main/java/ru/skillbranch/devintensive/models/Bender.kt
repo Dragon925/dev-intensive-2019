@@ -71,7 +71,7 @@ class Bender(
         BDAY("Когда меня создали?", listOf("2993")) {
             override fun nextQuestion(): Question = SERIAL
             override fun validate(answer: String): Pair<Boolean, String> =
-                answer.trim().contains("^\\d".toRegex()).not() to "Год моего рождения должен содержать только цифры\n"
+                answer.trim().contains("[^\\d]".toRegex()).not() to "Год моего рождения должен содержать только цифры\n"
         },
         SERIAL("Мой серийный номер?", listOf("2716057")) {
             override fun nextQuestion(): Question = IDLE
