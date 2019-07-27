@@ -1,5 +1,7 @@
 package ru.skillbranch.devintensive.utils
 
+import android.content.res.Resources
+
 object Utils {
 
     private val translitMap: Map<Char, String> = hashMapOf(
@@ -38,6 +40,10 @@ object Utils {
         'я' to "ya"
     )
 
+    private val ignored = setOf("enterprise", "features", "topics",
+        "collections", "trending", "events", "marketplace", "pricing", "nonprofit",
+        "customer-stories", "security", "login", "join")
+
     fun parseFullName(fullName: String?) : Pair<String?, String?> {
         val processedString = fullName?.trim()
         if (processedString.isNullOrBlank())
@@ -66,8 +72,29 @@ object Utils {
     fun toInitials(firstName: String?, lastName: String?) : String? {
         if (firstName?.trim().isNullOrBlank() && lastName?.trim().isNullOrBlank())
             return null
-        val firstInitial = firstName?.trim()?.get(0)?.toUpperCase() ?: ""
-        val secondInitial = lastName?.trim()?.get(0)?.toUpperCase() ?: ""
+        val firstInitial = if (!firstName.isNullOrBlank())
+            firstName.trim()[0].toUpperCase() else ""
+        val secondInitial = if (!lastName.isNullOrBlank())
+            lastName.trim()[0].toUpperCase() else ""
         return "$firstInitial$secondInitial"
+    }
+
+    fun isRepositoryValid(repository: String): Boolean {
+        val regex = Regex("^(?:https://)?(?:www.)?(?:github.com/)(?!${ignored.joinToString("|")})\\w+$")
+        return repository.isEmpty() || regex.matches(repository)
+    }
+
+    fun convertPxToDp(px: Int): Int {
+        val scale = Resources.getSystem().displayMetrics.density
+        return (px / scale + 0.5f).toInt()
+    }
+
+    fun convertDpToPx(dp: Int): Int {
+        val scale = Resources.getSystem().displayMetrics.density
+        return (dp * scale + 0.5f).toInt()
+    }
+
+    fun convertSpToPx(sp: Int): Int {
+        return sp * Resources.getSystem().displayMetrics.scaledDensity.toInt()
     }
 }
