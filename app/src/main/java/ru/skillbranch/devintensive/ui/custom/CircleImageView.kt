@@ -14,10 +14,11 @@ import androidx.core.graphics.drawable.RoundedBitmapDrawableFactory
 import ru.skillbranch.devintensive.R
 import ru.skillbranch.devintensive.utils.Utils
 
-class CircleImageView(
+class CircleImageView @JvmOverloads constructor(
     context: Context,
-    attrs: AttributeSet? = null
-) : ImageView(context, attrs){
+    attrs: AttributeSet? = null,
+    defStyleAttr: Int = 0
+) : ImageView(context, attrs, defStyleAttr){
 
     companion object {
         private const val DEFAULT_BORDER_COLOR = Color.WHITE
@@ -63,8 +64,8 @@ class CircleImageView(
     private fun getRoundedDrawable(bitmap: Bitmap?): Drawable =
         RoundedBitmapDrawableFactory.create(resources, bitmap).also { it.isCircular = true }
 
-    override fun getDrawable(): Drawable {
-        return originalDrawable ?: super.getDrawable()
+    fun getOriginalDrawable(): Drawable? {
+        return originalDrawable
     }
 
     fun generateAvatar(text: String?, size: Int) {
@@ -73,7 +74,7 @@ class CircleImageView(
                 else generateTextAvatar(text, size)
         }
         this.text = text
-        invalidate()
+        super.setImageBitmap(defaultAvatar)
     }
 
     private fun generateDefaultAvatar(): Bitmap {
@@ -145,16 +146,16 @@ class CircleImageView(
         }
 
     override fun onDraw(canvas: Canvas?) {
-        if (originalDrawable != null)
+//        if (originalDrawable != null)
             super.onDraw(canvas)
-        else {
-            if (defaultAvatar == null) {
-                defaultAvatar = generateDefaultAvatar()
-                canvas?.drawBitmap(defaultAvatar!!, 0f, 0f, null)
-            }
-            else
-                canvas?.drawBitmap(defaultAvatar!!, 0f, 0f, null)
-        }
+//        else {
+//            if (defaultAvatar == null) {
+//                defaultAvatar = generateDefaultAvatar()
+//                canvas?.drawBitmap(defaultAvatar!!, 0f, 0f, null)
+//            }
+//            else
+//                canvas?.drawBitmap(defaultAvatar!!, 0f, 0f, null)
+//        }
 
         val radius = width / 2f
         paintBorder.style = Paint.Style.STROKE
