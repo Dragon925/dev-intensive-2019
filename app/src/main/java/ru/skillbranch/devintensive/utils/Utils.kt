@@ -55,6 +55,10 @@ object Utils {
         return firstName to lastName
     }
 
+    fun toFullName(firstName: String?, lastName: String?, divider: String = " ") : String {
+        return "${if (firstName.isNullOrBlank()) "" else "$firstName$divider"}${lastName ?: ""}"
+    }
+
     fun transliteration(payload: String, divider: String = " "): String {
         var processedString = payload.trim()
         val charSet = processedString.toSet()
@@ -72,10 +76,10 @@ object Utils {
     fun toInitials(firstName: String?, lastName: String?) : String? {
         if (firstName?.trim().isNullOrBlank() && lastName?.trim().isNullOrBlank())
             return null
-        val firstInitial = if (!firstName.isNullOrBlank())
-            firstName.trim()[0].toUpperCase() else ""
+        val firstInitial:String = if (!firstName.isNullOrBlank())
+            firstName.trim()[0].toUpperCase().toString() else ""
         val secondInitial = if (!lastName.isNullOrBlank())
-            lastName.trim()[0].toUpperCase() else ""
+            lastName.trim()[0].toUpperCase().toString() else ""
         return "$firstInitial$secondInitial"
     }
 

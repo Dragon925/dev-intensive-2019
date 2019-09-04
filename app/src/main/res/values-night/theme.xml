@@ -2,9 +2,9 @@
 <resources>
 
     <!-- Base application theme. -->
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppTheme" parent="Theme.MaterialComponents.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@android:color/white</item>
+        <item name="colorPrimary">@color/color_appbar_night</item>
         <item name="colorPrimaryDark">@color/color_primary_dark</item>
         <item name="colorAccent">@color/color_accent_night</item>
 
@@ -12,6 +12,26 @@
         <item name="colorIcon">@android:color/white</item>
         <item name="colorDivider">@color/color_divider_dark</item>
         <item name="android:statusBarColor">@android:color/black</item>
+
+        <item name="colorText">@android:color/white</item>
+        <item name="colorListItem">@color/color_list_item_night</item>
+        <item name="colorSwipeBackground">@color/color_accent_night</item>
+
+        <item name="colorItemSelected">@color/color_divider_dark</item>
+        <item name="colorItemCleared">@color/color_list_item_night</item>
+
+        <item name="colorUserSelected">@color/color_accent_night</item>
+        <item name="colorIndicator">@color/color_accent_night</item>
+
+        <item name="colorTime">@color/color_gray</item>
+        <item name="colorCounterBackground">@color/color_gray_dark</item>
+
+        <item name="colorArchiveBackground">@color/color_gray_dark</item>
+        <item name="colorChipBackground">@android:color/black</item>
+        <item name="colorChip">@color/color_list_item_night</item>
+
+        <item name="colorSnackBarBackground">@android:color/white</item>
+        <item name="colorSnackBarText">@android:color/black</item>
 
     </style>
 </resources>

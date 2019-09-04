@@ -5,6 +5,7 @@ import android.graphics.*
 import android.graphics.drawable.BitmapDrawable
 import android.graphics.drawable.Drawable
 import android.util.AttributeSet
+import android.util.Log
 import android.util.TypedValue
 import android.widget.ImageView
 import androidx.annotation.ColorRes
@@ -32,6 +33,8 @@ class CircleImageView @JvmOverloads constructor(
     private var defaultAvatar: Bitmap? = null
     private var text: String? = null
     private var lastTextSize: Int = 0
+
+    private val paint = Paint(Paint.ANTI_ALIAS_FLAG).also { it.color = Color.LTGRAY }
 
     init {
         if (attrs != null) {
@@ -98,7 +101,7 @@ class CircleImageView @JvmOverloads constructor(
         return bitmapWithBorder
     }
 
-    fun generateAvatar(text: String?, size: Int) {
+    fun generateAvatar(text: String?, size: Int = Utils.convertSpToPx(48)) {
         if (sourceDrawable == null || text != this.text || size != this.lastTextSize) {
             defaultAvatar = if (text == null) generateDefaultAvatar()
                 else generateTextAvatar(text, size)
