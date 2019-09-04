@@ -22,7 +22,7 @@ fun Date.shortFormat() : String {
 
 fun Date.isSameDay(date: Date) : Boolean {
     val day1 = this.time / DAY
-    val day2 = this.time / DAY
+    val day2 = date.time / DAY
     return day1 == day2
 }
 
