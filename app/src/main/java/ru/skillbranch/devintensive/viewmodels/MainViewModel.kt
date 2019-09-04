@@ -24,21 +24,18 @@ class MainViewModel : ViewModel() {
 
         val filterF = {
             val queryStr = query.value!!
-            val chats = this.chats.value!!
+            var chats = this.chats.value!!
             val archivedChats = chatRepository.loadChats().value!!.filter { it.isArchived }
             val archivedChat = archivedChats.maxBy { it.lastMessageDate()?.time ?: 0 }?.toChatItem()
-            var count = 0
-            for (i in archivedChats)
-                count += i.unreadableMessageCount()
-            result.value = if (queryStr.isEmpty()){
-                if (archivedChat == null)
-                    chats
-                else {
-                    val items = mutableListOf(archivedChat.copy(messageCount = count, chatType = ChatType.ARCHIVE))
-                    items.addAll(chats)
-                    items
-                }
-            } else chats.filter {
+            if (archivedChat != null) {
+                var count = 0
+                for (i in archivedChats)
+                    count += i.unreadableMessageCount()
+                val temp = mutableListOf(archivedChat.copy(messageCount = count, chatType = ChatType.ARCHIVE))
+                temp.addAll(chats)
+                chats = temp
+            }
+            result.value = if (queryStr.isEmpty()) chats else chats.filter {
                 it.title.contains(queryStr, true)
             }
         }

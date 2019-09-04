@@ -18,7 +18,8 @@
         <attr name="colorDivider" format="reference"/>
         <attr name="colorIcon" format="reference"/>
         
-        <attr name="colorText" format="reference"/>
+        <attr name="colorTextLabel" format="reference"/>
+        <attr name="colorTextMessage" format="reference"/>
         <attr name="colorSwipeBackground" format="reference"/>
         <attr name="colorListItem" format="reference"/>
 

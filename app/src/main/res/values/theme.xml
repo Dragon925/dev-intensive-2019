@@ -12,7 +12,8 @@
         <item name="colorIcon">@color/color_gray</item>
         <item name="colorDivider">@color/color_divider_dark</item>
 
-        <item name="colorText">@color/color_primary</item>
+        <item name="colorTextLabel">@color/color_primary</item>
+        <item name="colorTextMessage">@color/color_gray_dark</item>
         <item name="colorListItem">@android:color/white</item>
         <item name="colorSwipeBackground">@color/color_primary_dark</item>
 
