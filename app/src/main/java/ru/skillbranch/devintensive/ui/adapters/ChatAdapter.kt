@@ -152,10 +152,10 @@ class ChatAdapter(val listener : (ChatItem) -> Unit) : RecyclerView.Adapter<Chat
 
             tv_title_group.text = item.title
             tv_message_group.text = item.shortDescription ?: "Сообщений ещё нет"
-            Log.d("M_ChatAdapter", "GroupChat: ${item.messageCount}")
+            val author = "@${item.author}"
             with(tv_message_author) {
                 visibility = if (item.messageCount > 0) View.VISIBLE else View.GONE
-                text = item.author
+                text = author
             }
             itemView.setOnClickListener{
                 listener.invoke(item)
